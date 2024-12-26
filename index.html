@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeXの使い方</title>
+    <!-- <link rel="stylesheet" href="src/style.css" /> -->
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid #000;
+        }
+
+        table {
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ようこそ、TeX入門へ!</h1>
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#about">概要</a></li>
+            <li><a href="#class">文書クラス</a></li>
+            <li><a href="#usepackage">usepackage</a></li>
+            <li><a href="#examples">文字関連</a></li>
+            <ul>
+                <li><a href="#">文字サイズ</a></li>
+                <li><a href="#">フォント</a></li>
+            </ul>
+            <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>概要</h2>
+            <p>このページは、TeXで基本的な文書が創れるようになるためのページです。</p>
+        </section>
+
+        <section id="class">
+            <h2>文書クラス</h2>
+            <p>ここでは，文書クラスについて紹介します。<br>
+                これがないとTeXを始められないのに，一番苦労するかも知れない部分ですね。
+            </p>
+            <ul>
+                <li><a href="#class-about">クラスの指定方法</a></li>
+                <li><a href="#class-value">一般的な文書クラス</a></li>
+                <li><a href="#class-option">クラスのオプション</a></li>
+            </ul>
+
+            <h3 id="class-about">クラスの指定方法</h3>
+            <p>
+            <h4>文法</h4>
+            \documentclass[オプション]{文書クラス}<br>
+            オプション部分では文字サイズ，文書の段組み，用紙設定等の設定が可能です。
+            </p>
+
+            <h3 id="class-value">一般的な文書クラス</h3>
+            <p>
+            <h4>pLaTeX/upLaTeXの場合</h4>
+            <table>
+                <tr>
+                    <th>クラス名<br>(使用時は" ,dvipdfmx "を追加)</th>
+                    <th>特徴</th>
+                </tr>
+                <tr>
+                    <td>jsarticle</td>
+                    <td>短い報告書や一般的なお知らせなどの文書</td>
+                </tr>
+                <tr>
+                    <td>jsreport</td>
+                    <td>報告書や論文など、よりフォーマルな文書</td>
+                </tr>
+                <tr>
+                    <td>jsbook</td>
+                    <td>本の執筆</td>
+                </tr>
+                <tr>
+                    <td>BXjscls</td>
+                    <td>日本語文書組版のためのクラスのコレクション</td>
+                </tr>
+                <tr>
+                    <td>article</td>
+                    <td>欧文文書の一般的なクラス</td>
+                </tr>
+                <tr>
+                    <td>report</td>
+                    <td>欧文文書の一般的なクラス</td>
+                </tr>
+                <tr>
+                    <td>book</td>
+                    <td>欧文文書の一般的なクラス</td>
+                </tr>
+                <tr>
+                    <td>beamer</td>
+                    <td>プレゼンテーション資料</td>
+                </tr>
+                <tr>
+                    <td>letter</td>
+                    <td>手紙</td>
+                </tr>
+                <tr>
+                    <td>slides</td>
+                    <td>スライド</td>
+                </tr>
+            </table>
+            </p>
+
+            <h4>LuaLaTeXの場合</h4>
+            <p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>クラス名</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>article, report, book</td>
+                        <td>従来のLaTeXの標準的なクラス。LuaLaTeXでもそのまま使用可能。</td>
+                    </tr>
+                    <tr>
+                        <td>amsart, beamer</td>
+                        <td>AMS (American Mathematical Society) の文書クラスや、プレゼンテーション用の beamer クラスなど。LuaLaTeXでも利用可能。</td>
+                    </tr>
+                    <tr>
+                        <td>jlreq</td>
+                        <td>LuaLaTeXとupLaTeXの両方で使える、日本語組版処理の要件に準拠したクラス。</td>
+                    </tr>
+                    <tr>
+                        <td>ltjsclasses</td>
+                        <td>jsclassesをLuaLaTeXに対応させたクラス。</td>
+                    </tr>
+                    <tr>
+                        <td>BXjscls</td>
+                        <td>upLaTeXやLuaLaTeX、XeLaTeXに対応した日本語文書組版のためのクラスのコレクション。</td>
+                    </tr>
+                    <tr>
+                        <td>その他</td>
+                        <td>Luaを用いて独自に作成されたクラスなど、多様なものが存在します。</td>
+                    </tr>
+                </tbody>
+            </table>
+            </p>
+
+            <h4>XeLaTeXの場合</h4>
+            <p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>クラス名</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>article, report, book</td>
+                        <td>従来のLaTeXの標準的なクラス。XeLaTeXでもそのまま使用可能。</td>
+                    </tr>
+                    <tr>
+                        <td>amsart, beamer</td>
+                        <td>AMS (American Mathematical Society) の文書クラスや、プレゼンテーション用の beamer クラスなど。XeLaTeXでも利用可能。</td>
+                    </tr>
+                    <tr>
+                        <td>その他</td>
+                        <td>XeLaTeXのフォント処理機能を活かした独自のクラスなど、多様なものが存在します。</td>
+                    </tr>
+                </tbody>
+            </table>
+            </p>
+
+            <h3 id="class-option">指定できるオプション</h3>
+            <p>
+                オプションの指定は，どのLaTeXでも変わりません。複数指定する場合はカンマ","で区切りましょう。
+            <table>
+                <thead>
+                    <tr>
+                        <th>オプションの種類</th>
+                        <th>例</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>フォントサイズ</td>
+                        <td>10pt, 11pt, 12pt</td>
+                        <td>文書のフォントサイズを指定します。</td>
+                    </tr>
+                    <tr>
+                        <td>用紙サイズ</td>
+                        <td>a4paper, letterpaper</td>
+                        <td>用紙サイズを指定します。</td>
+                    </tr>
+                    <tr>
+                        <td>余白</td>
+                        <td>onecolumn, twocolumn</td>
+                        <td>1カラムか2カラムで組版するかを指定します。</td>
+                    </tr>
+                    <tr>
+                        <td>章の番号付け</td>
+                        <td>openright, openany</td>
+                        <td>章の始まりが偶数ページか任意のページから始まるかを指定します。</td>
+                    </tr>
+                    <tr>
+                        <td>その他</td>
+                        <td>titlepage, notitlepage</td>
+                        <td>タイトルページを作成するか否かなどを指定します。</td>
+                    </tr>
+                </tbody>
+            </table>
+            </p>
+        </section>
+
+        <section id="usepackage">
+            <h2>usepackage</h2>
+            <p>ここではusepackageの使い方について紹介します。</p>
+            <p>使用するTeXのバージョンによって使うものが異なる場合もあります。<br>
+                usepackageは作成する文書に応じて記述するものです。<br>
+                ここでは，レポート作成で使用することの多い物を紹介します。
+            </p>
+            <ul>
+                <li><a href="#japanese"><b>日本語関連</b></a></li>
+                <li><a href="#graphic">画像関連</a></li>
+                <li><a href="#table">表関連</a></li>
+                <li><a href="#math">数式関連</a></li>
+                <li><a href="#other">その他</a></li>
+            </ul>
+
+            <h3 id="japanese">日本語関連</h3>
+            <p>
+            <h4>pLaTeX/upLaTeXの場合</h4>
+            \usepackage{indentfarst}<br>
+            これを利用すると，日本語の文書を作成した時に，最初の段落の一文字目をあける物です。
+            </p>
+
+            <p>
+            <h4>LuaLaTeXの場合</h4>
+            \usepackage{indentfarst}<br>
+            \usepackage{luatexja}<br>
+            最初の段落の一文字目をあけるものは一緒ですが，日本語を使用するためのusepackageが必要です。<br>
+            忘れず追加しましょう。
+            </p>
+
+            <p>
+            <h4>XeLaTeXの場合</h4>
+            \usepackage{indentfarst}<br>
+            \usepackage{xeCJK}<br>
+            最初の段落の一文字目をあけるものは一緒ですが，日本語を使用するためのusepackageが必要です。<br>
+            忘れず追加しましょう。LuaLaTeXとも違うので注意！
+            </p>
+
+            <h3 id="graphic">画像関連</h3>
+            <p>
+            <h4>必ず必要なもの</h4>
+            \usepackage{graphicx}<br>
+            これは，画像を貼り付ける際に必ず必要となるものです。<br>
+            これがないとエラーが出てしまうので画像を貼り付ける際は忘れず追加しましょう。<br>
+            <ul>
+                <li>
+                    ※pLaTeX/upLaTeXを用いる人は，<br>
+                    \usepackage[dvipdfmx]{graphicx}<br>
+                    を使用してください。え，なんでかって？なんででしょうねぇ
+                </li>
+            </ul>
+            </p>
+
+            <p>
+            <h4>頑張って画像をこねくり回したい人向け</h4>
+            \usepackage{wrapfig}<br>
+            これは，画像の横に文字を回り込ませたりすることができるようになるものです。<br>
+            こだわりたい人は使ってみてください。(これは，どのLaTeXでも同じみたいです。)
+            </p>
+            <h3 id="table">表関連</h3>
+            ぶっちゃけ普通の表なら何もいらないです。
+            セルをつなげたいな~とかいう人は使ってみてください<br>
+            ちなみに，このサイト便利ですよ。
+            <a href="https://www.tablesgenerator.com/">Create LaTeX tables online – TablesGenerator.com</a><br>
+            表のコードを自動生成してくれて，もしusepackageが必要なら伝えてくれるとてもありがたい存在です。
+            <p>
+            <h4>横方向にセルを結合する</h4>
+            \usepackage{wrapfig}<br>
+            これは，画像の横に文字を回り込ませたりすることができるようになるものです。<br>
+            こだわりたい人は使ってみてください。(これは，どのLaTeXでも同じみたいです。)
+            </p>
+            <h3 id="math">数式関連</h3>
+            <h3 id="other">その他</h3>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 TeX入門</p>
+    </footer>
+
+    <!-- <script src="src/main.js"></script> -->
+</body>
+
+</html>
